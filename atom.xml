@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http:/"/>
-  <updated>2017-02-07T11:13:43.078Z</updated>
+  <updated>2017-02-07T11:18:38.834Z</updated>
   <id>http:/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http:/2017/02/07/%E5%BD%93Qt(C++)%E4%B8%AD%EF%BC%8Cfunction%E6%88%90%E4%B8%BAfirst-class/"/>
     <id>http:/2017/02/07/当Qt(C++)中，function成为first-class/</id>
     <published>2017-02-07T10:53:35.000Z</published>
-    <updated>2017-02-07T11:13:43.078Z</updated>
+    <updated>2017-02-07T11:18:38.834Z</updated>
     
     <content type="html"><![CDATA[<p>我对C++的使用和理解是不断变化的。从一开始的C with Class 到接触到设计模式，才理解了什么叫真正的OOP；从接触到STL才真正正视Template，了解了什么是GP；从Python和Golang的火热中了解了函数作为first-class的力量；从某些文章对Lisp近乎玄学的推崇中知道了FP的优势和它逐渐在主流的编程方式中兴起的原因。<br>C++是包容和自由的，自从学了std::function和lambda之后，我也开始逐渐学着向FP方式转变。因为在很多方面，将function作为first-class，对编码带来的不只是形式上的变化，更是思维方式的变化。</p>
 <p><strong>lambda与QObject::Connect</strong></p>
@@ -152,7 +152,9 @@ private:
     </summary>
     
     
-      <category term="C++ Qt" scheme="http:/tags/C-Qt/"/>
+      <category term="C++" scheme="http:/tags/C/"/>
+    
+      <category term="Qt" scheme="http:/tags/Qt/"/>
     
   </entry>
   
@@ -161,7 +163,7 @@ private:
     <link href="http:/2017/01/23/%E6%B5%85%E8%B0%88Singleton/"/>
     <id>http:/2017/01/23/浅谈Singleton/</id>
     <published>2017-01-22T18:36:20.000Z</published>
-    <updated>2017-02-07T11:13:44.542Z</updated>
+    <updated>2017-02-07T11:15:42.000Z</updated>
     
     <content type="html"><![CDATA[<p>我们在实现单例模式时，考虑的第一点是对象的创建和访问只有一个共同的入口，所以必须满足以下两个条件：</p>
 <blockquote>
