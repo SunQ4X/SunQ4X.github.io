@@ -14,7 +14,7 @@
 <meta property="og:url" content="http:/2017/02/07/当Qt(C++)中，function成为first-class/index.html">
 <meta property="og:site_name" content="Sunix`s blog">
 <meta property="og:description" content="我对C++的使用和理解是不断变化的。从一开始的C with Class 到接触到设计模式，才理解了什么叫真正的OOP；从接触到STL才真正正视Template，了解了什么是GP；从Python和Golang的火热中了解了函数作为first-class的力量；从某些文章对Lisp近乎玄学的推崇中知道了FP的优势和它逐渐在主流的编程方式中兴起的原因。C++是包容和自由的，自从学了std::functi">
-<meta property="og:updated_time" content="2017-02-07T10:57:35.000Z">
+<meta property="og:updated_time" content="2017-02-07T11:06:08.780Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="当Qt(C++)中，function成为first-class">
 <meta name="twitter:description" content="我对C++的使用和理解是不断变化的。从一开始的C with Class 到接触到设计模式，才理解了什么叫真正的OOP；从接触到STL才真正正视Template，了解了什么是GP；从Python和Golang的火热中了解了函数作为first-class的力量；从某些文章对Lisp近乎玄学的推崇中知道了FP的优势和它逐渐在主流的编程方式中兴起的原因。C++是包容和自由的，自从学了std::functi">
@@ -174,8 +174,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>我对C++的使用和理解是不断变化的。从一开始的C with Class 到接触到设计模式，才理解了什么叫真正的OOP；从接触到STL才真正正视Template，了解了什么是GP；从Python和Golang的火热中了解了函数作为first-class的力量；从某些文章对Lisp近乎玄学的推崇中知道了FP的优势和它逐渐在主流的编程方式中兴起的原因。<br>C++是包容和自由的，自从学了std::function和lambda之后，我也开始逐渐学着向FP方式转变。因为在很多方面，将function作为first-class，对编码带来的不只是形式上的变化，更是思维方式的变化。</p>
-<p>###lambda与QObject::Connect###</p>
-<p>C++11lambda表达式和Qt5的搭档，使得可以可以放弃<code>SIGNAL</code>、<code>SLOT</code>宏，采用一种更加直观和简洁的方式使用Connect。<br>使用lambda之前，如果要在Qt的main函数里使用slot，不得不另外构造一个类继承QObject，并且定义槽函数，然后才能在main里实例化对象并绑定槽函数：</p>
+<p><strong>lambda与QObject::Connect</strong></p>
+<p>C++11 lambda表达式和Qt5的搭档，使得可以可以放弃<code>SIGNAL</code>、<code>SLOT</code>宏，采用一种更加直观和简洁的方式使用Connect。<br>使用lambda之前，如果要在Qt的main函数里使用slot，不得不另外构造一个类继承QObject，并且定义槽函数，然后才能在main里实例化对象并绑定槽函数：</p>
 <pre><code>//myObject.h
 #include &lt;QObject&gt;
 class myObject : public QObject {
@@ -219,7 +219,7 @@ int main(int argc, char *argv[]) {
     return app.exec();
 }
 </code></pre><p>简洁！一目了然！！</p>
-<p>###虚函数与std::function###</p>
+<p><strong>虚函数与std::function</strong></p>
 <p>上面的例子其实还有类似的情况，在QWidget上想要自定义鼠标press事件，我们有两种方式：</p>
 <ul>
 <li>该widget外部使用eventfilter来拦截该widget的鼠标press事件并处理</li>
@@ -252,7 +252,7 @@ btn._onClicked = [](){
     //需要的操作
 };
 </code></pre><p>喏，更加的简单明了。函数不需要通过继承来特化，而是通过像普通变量一样的方式直接实例化，带来的不光是结构 上的简单，还有语意上的直白。</p>
-<p>###ScopeGuard###</p>
+<p><strong>ScopeGuard</strong></p>
 <p>资源的释放从来都是一个问题。文件句柄、锁、等等资源，申请的时候我们可能想着一会儿用完要释放，等到用完之后可能就忘了，或者是因为分支处理漏掉了，这都是很有可能发生的，就算没有在分支处理中漏掉，在各个分支里都重复的写同样的释放资源的代码也很不fashion，没人愿意当CV战士。<br>利用RAII特性，局部变量析构时候释放资源已经成为一个通用做法。麻烦的是我们需要为各种资源都创建类来利用其析构函数释放资源，太麻烦。现在有了std::function就好了，借鉴一下std::lock_guard，就有了下面的做法：</p>
 <pre><code>//ScopeGuard.h
 class ScopeGuard {
@@ -289,7 +289,7 @@ private:
     ......
 }
 </code></pre><p>资源创建之后，立即跟在后面写释放方式，不会忘不会漏，看起来还明确。<br>ON_SCOPE_EXIT宏作用在于创建了一个ScopeGuard局部变量；变量名由行号确定，避免了多个ScopeGuard重名的问题。</p>
-<p>###其它###</p>
+<p><strong>其它</strong></p>
 <p>将function作为first-class带来的改变还有很多，比如将function保存在容器中，将function作为值传递给别的线程执行，返回闭包来创建累加器等等。</p>
 <blockquote>
 <p><strong>初极狭，才通人。复行数十步，豁然开朗。</strong></p>
